@@ -38,7 +38,7 @@ public class ConnectionController {
     }
 
     public static MongoClient openConnection() {
-        return MongoClients.create(ConnectionController.mongoClientSettings());
+        return MongoClients.create(mongoClientSettings());
     }
 
     public static void closeConnection(MongoClient mongoClient) {
