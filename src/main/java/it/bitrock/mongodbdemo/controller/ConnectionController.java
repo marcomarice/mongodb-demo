@@ -37,17 +37,6 @@ public class ConnectionController {
         return COLLECTION;
     }
 
-    public static MongoClientSettings mongoClientSettings() {
-        ConnectionString connectionString = new ConnectionString(MONGODB_URI);
-        CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
-                fromProviders(PojoCodecProvider.builder().automatic(true).build()));
-
-        return MongoClientSettings.builder()
-                .applyConnectionString(connectionString)
-                .codecRegistry(pojoCodecRegistry)
-                .build();
-    }
-
     public static MongoClient openConnection() {
         return MongoClients.create(ConnectionController.mongoClientSettings());
     }
@@ -65,5 +54,15 @@ public class ConnectionController {
         try (MongoClient mongoClient = MongoClients.create(MONGODB_URI)) {
             return mongoClient.listDatabases().into(new ArrayList<>());
         }
+    }
+    private static MongoClientSettings mongoClientSettings() {
+        ConnectionString connectionString = new ConnectionString(MONGODB_URI);
+        CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
+                fromProviders(PojoCodecProvider.builder().automatic(true).build()));
+
+        return MongoClientSettings.builder()
+                .applyConnectionString(connectionString)
+                .codecRegistry(pojoCodecRegistry)
+                .build();
     }
 }
