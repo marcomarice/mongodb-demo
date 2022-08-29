@@ -1,4 +1,4 @@
-package it.bitrock.demo.controller;
+package it.bitrock.mongodbdemo.controller;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;

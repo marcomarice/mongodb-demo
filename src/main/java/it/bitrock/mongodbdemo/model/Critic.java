@@ -1,4 +1,4 @@
-package it.bitrock.demo.model;
+package it.bitrock.mongodbdemo.model;
 
 import lombok.Getter;
 import lombok.Setter;

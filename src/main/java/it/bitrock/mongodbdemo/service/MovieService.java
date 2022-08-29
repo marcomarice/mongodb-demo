@@ -1,4 +1,4 @@
-package it.bitrock.demo.service;
+package it.bitrock.mongodbdemo.service;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -6,8 +6,8 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.BucketOptions;
 import com.mongodb.client.model.Facet;
-import it.bitrock.demo.controller.ConnectionController;
-import it.bitrock.demo.model.Movie;
+import it.bitrock.mongodbdemo.controller.ConnectionController;
+import it.bitrock.mongodbdemo.model.Movie;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -20,8 +20,8 @@ import static com.mongodb.client.model.Accumulators.sum;
 import static com.mongodb.client.model.Filters.*;
 import static com.mongodb.client.model.Projections.*;
 import static com.mongodb.client.model.Sorts.descending;
-import static it.bitrock.demo.controller.ConnectionController.closeConnection;
-import static it.bitrock.demo.controller.ConnectionController.openConnection;
+import static it.bitrock.mongodbdemo.controller.ConnectionController.closeConnection;
+import static it.bitrock.mongodbdemo.controller.ConnectionController.openConnection;
 
 public class MovieService {
 
@@ -53,14 +53,14 @@ public class MovieService {
         return movies;
     }
 
-    public static List<Movie> getMoviesByRatingAndComplexFind(Double viewerRating, Double criticRating) {
+    public static List<Movie> getMoviesByRatingAndOtherConditions(Double viewerRating, Double criticRating) {
         List<Movie> movies = getMoviesCollection(openConnection())
                 .find(and(gte("tomatoes.viewer.rating", viewerRating),
                         lte("tomatoes.critic.rating", criticRating)))
                 .projection(fields(excludeId(), include("title", FIELD_DIRECTORS)))
                 .sort(descending("year"))
                 .skip(2)
-                .limit(2)
+                .limit(100)
                 .into(new ArrayList<>());
         closeConnection(openConnection());
         return movies;

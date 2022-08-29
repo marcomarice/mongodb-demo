@@ -1,7 +1,7 @@
-package it.bitrock.demo.service;
+package it.bitrock.mongodbdemo.service;
 
 import com.mongodb.client.MongoCursor;
-import it.bitrock.demo.model.Movie;
+import it.bitrock.mongodbdemo.model.Movie;
 import org.bson.Document;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -38,9 +38,9 @@ class MovieServiceTest {
     }
 
     @Test
-    void getMoviesByRatingAndComplexFindPositiveTest() {
-        List<Movie> movies = MovieService.getMoviesByRatingAndComplexFind(1.0, 10.0);
-        Assertions.assertEquals(2, movies.size());
+    void getMoviesByRatingAndOtherConditionsPositiveTest() {
+        List<Movie> movies = MovieService.getMoviesByRatingAndOtherConditions(4.0, 5.0);
+        Assertions.assertEquals(23, movies.size());
     }
 
     @Test
